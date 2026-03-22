@@ -1,10 +1,17 @@
 name: Release
 
 on:
-  workflow_run:
-    workflows: ["CI/CD"]
-    types: [completed]
-    branches: [main]
+  workflow_dispatch:
+    inputs:
+      version_bump:
+        description: 'Version bump type'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
 
 permissions:
   contents: write
@@ -13,7 +20,6 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
-    if: github.event.workflow_run.conclusion == 'success'
     steps:
       - uses: actions/checkout@v4
         with:
