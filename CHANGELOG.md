@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/msandeep12/gh-agent-sync/compare/v1.0.1...v1.1.0) (2026-03-22)
+
+
+### Features
+
+* add __main__.py module entry point for direct package execution ([25fc26d](https://github.com/msandeep12/gh-agent-sync/commit/25fc26dc023afc95155f321fa6a7ed7d483f98f5))
+
 ## [1.0.1](https://github.com/msandeep12/gh-agent-sync/compare/v1.0.0...v1.0.1) (2026-03-22)
 
 
