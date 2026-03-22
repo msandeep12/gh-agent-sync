@@ -1,6 +1,6 @@
 {
   "branches": ["main"],
-  "repositoryUrl": "https://github.com/msandeep12/Codezaro.git",
+  "repositoryUrl": "https://github.com/msandeep12/gh-agent-sync.git",
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",

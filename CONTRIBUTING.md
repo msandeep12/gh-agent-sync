@@ -72,8 +72,8 @@ The version is automatically bumped based on conventional commit types:
 
 ```bash
 # Clone the repository
-git clone https://github.com/msandeep12/Codezaro.git
-cd Codezaro
+git clone https://github.com/msandeep12/gh-agent-sync.git
+cd gh-agent-sync
 
 # Install in development mode
 pip install -e .

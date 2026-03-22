@@ -23,6 +23,10 @@ classifiers = [
 ]
 dependencies = []
 
+[project.urls]
+Homepage = "https://github.com/msandeep12/gh-agent-sync"
+Repository = "https://github.com/msandeep12/gh-agent-sync"
+
 [project.scripts]
 gh-copilot-linker = "copilot_linker.cli:main"
 
