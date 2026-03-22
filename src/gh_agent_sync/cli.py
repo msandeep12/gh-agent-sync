@@ -7,6 +7,7 @@ import os
 import sys
 import shutil
 import argparse
+import tempfile
 from pathlib import Path
 from .git_mcp import GitMCPServer
 
@@ -17,23 +18,24 @@ def is_git_repo():
 
 
 def clone_or_update_awesome_copilot(repo_url):
-    """Clone or update the awesome-copilot repository."""
-    awesome_dir = Path(".github/awesome-copilot")
-
-    if awesome_dir.exists():
-        print("Updating repository...")
-        success, message = GitMCPServer.pull(str(awesome_dir))
-        if not success:
-            print(f"Error: {message}")
-        return success
+    """Clone the repository to a temporary directory and return the path.
+    
+    This uses a temporary directory to keep the project directory clean.
+    The full repository is not stored in the project.
+    """
+    temp_dir = tempfile.mkdtemp(prefix="gh-agent-sync-")
+    temp_path = Path(temp_dir)
+    
+    print(f"Cloning repository to temporary directory...")
+    success, message = GitMCPServer.clone(repo_url, str(temp_path))
+    if not success:
+        print(f"Error: {message}")
+        shutil.rmtree(temp_path, ignore_errors=True)
+        return None
     else:
-        print("Cloning repository...")
-        success, message = GitMCPServer.clone(repo_url, str(awesome_dir))
-        if not success:
-            print(f"Error: {message}")
-        else:
-            print(message)
-        return success
+        print(message)
+    
+    return temp_path
 
 
 def create_link_or_copy(source, target):
@@ -102,38 +104,36 @@ def link(repo_url):
     # Ensure .github directory exists
     Path(".github").mkdir(exist_ok=True)
 
-    # Clone/update repository
-    if not clone_or_update_awesome_copilot(repo_url):
-        print("Failed to clone/update repository")
+    # Clone repository to temporary directory
+    temp_repo = clone_or_update_awesome_copilot(repo_url)
+    if not temp_repo:
+        print("Failed to clone repository")
         sys.exit(1)
 
-    # Create links
-    awesome_dir = Path(".github/awesome-copilot")
+    try:
+        # Create links from temporary directory
+        success = True
+        success &= create_link_or_copy(temp_repo / "agents", Path(".github/agents"))
+        success &= create_link_or_copy(temp_repo / "skills", Path(".github/skills"))
 
-    success = True
-    success &= create_link_or_copy(awesome_dir / "agents", Path(".github/agents"))
-    success &= create_link_or_copy(awesome_dir / "skills", Path(".github/skills"))
-
-    if success:
-        add_to_gitignore()
-        print("Done! Agents and skills are now linked to your repository.")
-    else:
-        print("Some links failed to create.")
-        sys.exit(1)
+        if success:
+            add_to_gitignore()
+            print("Done! Agents and skills are now linked to your repository.")
+        else:
+            print("Some links failed to create.")
+            sys.exit(1)
+    finally:
+        # Clean up temporary directory
+        shutil.rmtree(temp_repo, ignore_errors=True)
+        print(f"Cleaned up temporary directory")
 
 
 def undo():
     """Undo the linking."""
     remove_link(".github/agents")
     remove_link(".github/skills")
-
-    # Remove cloned repo
-    awesome_dir = Path(".github/awesome-copilot")
-    if awesome_dir.exists():
-        shutil.rmtree(awesome_dir)
-        print("Removed .github/awesome-copilot")
-
-    print("Undo complete.")
+    
+    print("Undo complete. The agents and skills links have been removed.")
 
 
 def main():
