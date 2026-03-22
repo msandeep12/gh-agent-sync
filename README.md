@@ -29,7 +29,7 @@ Run the utility from the root of your git repository:
 ### Link Agents and Skills
 
 ```bash
-gh-copilot-linker link
+gh-agent-sync link
 ```
 
 Or specify a custom repository:
