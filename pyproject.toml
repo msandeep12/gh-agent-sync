@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "gh-agent-sync"
 version = "0.1.0"
-description = "Link agents and skills from awesome-copilot to your local repository. Supports MCP-based git operations."
+description = "Link agents and skills from awesome-copilot  or any common repos with agents/skills to your local repository."
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.8"
