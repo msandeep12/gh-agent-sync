@@ -18,7 +18,7 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
       
-      - uses: nodejs/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: "18"
       
