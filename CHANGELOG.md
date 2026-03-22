@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/msandeep12/gh-agent-sync/compare/v1.1.0...v1.2.0) (2026-03-22)
+
+
+### Features
+
+* improve package metadata and description for better PyPI discovery ([3dcb6c1](https://github.com/msandeep12/gh-agent-sync/commit/3dcb6c13a397a56a54bfc8281c9671562c5240f0))
+
 # [1.1.0](https://github.com/msandeep12/gh-agent-sync/compare/v1.0.1...v1.1.0) (2026-03-22)
 
 
