@@ -11,6 +11,12 @@
       }
     ],
     [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "sed -i.bak 's/^version = \"[^\"]*\"/version = \"${nextRelease.version}\"/' pyproject.toml && rm -f pyproject.toml.bak"
+      }
+    ],
+    [
       "@semantic-release/git",
       {
         "assets": ["CHANGELOG.md", "pyproject.toml"],
@@ -22,12 +28,6 @@
       {
         "releasedLabels": false,
         "successComment": false
-      }
-    ],
-    [
-      "@semantic-release/exec",
-      {
-        "publishCmd": "echo 'Publishing version ${nextRelease.version}'"
       }
     ]
   ]
