@@ -27,16 +27,16 @@ def is_git_repo():
     return run_command("git rev-parse --git-dir")
 
 
-def clone_or_update_awesome_copilot():
+def clone_or_update_awesome_copilot(repo_url):
     """Clone or update the awesome-copilot repository."""
     awesome_dir = Path(".github/awesome-copilot")
-    repo_url = "https://github.com/github/awesome-copilot"
+    repo_url = repo_url
 
     if awesome_dir.exists():
-        print("Updating awesome-copilot...")
+        print("Updating repository...")
         return run_command("git pull", cwd=awesome_dir)
     else:
-        print("Cloning awesome-copilot...")
+        print("Cloning repository...")
         return run_command(f"git clone {repo_url} {awesome_dir}")
 
 
@@ -101,14 +101,14 @@ def add_to_gitignore():
         print("Added entries to .gitignore")
 
 
-def link():
+def link(repo_url):
     """Link agents and skills."""
     # Ensure .github directory exists
     Path(".github").mkdir(exist_ok=True)
 
-    # Clone/update awesome-copilot
-    if not clone_or_update_awesome_copilot():
-        print("Failed to clone/update awesome-copilot")
+    # Clone/update repository
+    if not clone_or_update_awesome_copilot(repo_url):
+        print("Failed to clone/update repository")
         sys.exit(1)
 
     # Create links
@@ -142,8 +142,9 @@ def undo():
 
 def main():
     """Main function."""
-    parser = argparse.ArgumentParser(description="Link or undo linking of agents and skills from awesome-copilot")
+    parser = argparse.ArgumentParser(description="Link or undo linking of agents and skills from a repository")
     parser.add_argument("command", choices=["link", "undo"], help="Command to run: link or undo")
+    parser.add_argument("--url", default="https://github.com/github/awesome-copilot", help="URL of the repository containing agents and skills (default: awesome-copilot)")
 
     args = parser.parse_args()
 
@@ -152,7 +153,7 @@ def main():
         sys.exit(1)
 
     if args.command == "link":
-        link()
+        link(args.url)
     elif args.command == "undo":
         undo()
 

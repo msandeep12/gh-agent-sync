@@ -16,6 +16,12 @@ Or for development:
 pip install -e .
 ```
 
+From PyPI (once published):
+
+```bash
+pip install gh-copilot-linker
+```
+
 ## Usage
 
 Run the utility from the root of your git repository:
@@ -23,7 +29,13 @@ Run the utility from the root of your git repository:
 ### Link Agents and Skills
 
 ```bash
-copilot-linker link
+gh-copilot-linker link
+```
+
+Or specify a custom repository:
+
+```bash
+gh-copilot-linker link --url https://github.com/your-org/your-agents-repo
 ```
 
 This will:
@@ -34,12 +46,29 @@ This will:
 ### Undo Linking
 
 ```bash
-copilot-linker undo
+gh-copilot-linker undo
 ```
 
 This will:
 - Remove the `.github/agents` and `.github/skills` directories
 - Remove the cloned `.github/awesome-copilot` repository
+
+## Development
+
+### Building
+
+To build the package:
+
+```bash
+python -m build
+```
+
+### Publishing
+
+1. Create a release on GitHub
+2. The CI/CD workflow will automatically build and publish to PyPI
+
+Make sure to set up PyPI API tokens in the repository secrets if needed.
 
 ## What it does
 

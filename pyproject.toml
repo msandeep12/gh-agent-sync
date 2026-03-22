@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "copilot-linker"
+name = "gh-copilot-linker"
 version = "0.1.0"
 description = "Link agents and skills from awesome-copilot to your local repository"
 readme = "README.md"
@@ -24,7 +24,7 @@ classifiers = [
 dependencies = []
 
 [project.scripts]
-copilot-linker = "copilot_linker.cli:main"
+gh-copilot-linker = "copilot_linker.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
