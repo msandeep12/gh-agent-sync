@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/msandeep12/gh-agent-sync/compare/v1.0.0...v1.0.1) (2026-03-22)
+
+
+### Bug Fixes
+
+* update remaining gh-copilot-linker reference to gh-agent-sync in README ([0cf940f](https://github.com/msandeep12/gh-agent-sync/commit/0cf940fdb48afed0136a06c4983cd37359738089))
+
 # 1.0.0 (2026-03-22)
 
 
